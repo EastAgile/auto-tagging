@@ -4,7 +4,6 @@ describe "AutoTagging" do
   describe "Main" do
     let(:valid_key) { 'vcpghu34sh4exhrgx6nvetfg' }
     let(:invalid_key) { 'invalid_key' }
-    let(:service) { 'open_calais' }
 
     describe "#initialize" do
       context "invalid service" do
@@ -17,8 +16,11 @@ describe "AutoTagging" do
       end
 
       context "valid service" do
+        let(:valid_services) { ['open_calais','alchemy'] }
         it "should create a new Main obj" do
-          AutoTagging::Main.new(service, valid_key).should be_instance_of AutoTagging::Main
+          valid_services.each do |service|
+            AutoTagging::Main.new(service, valid_key).should be_instance_of AutoTagging::Main
+          end
         end
       end
     end

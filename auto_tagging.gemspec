@@ -16,4 +16,5 @@ Gem::Specification.new do |gem|
   gem.version       = AutoTagging::VERSION
   gem.add_development_dependency 'rspec'
   gem.add_development_dependency 'debugger'
+  gem.add_dependency 'alchemy-api-rb'
 end
