@@ -16,7 +16,7 @@ describe "AutoTagging" do
       end
 
       context "valid service" do
-        let(:valid_services) { ['open_calais','alchemy'] }
+        let(:valid_services) { ['open_calais','alchemy','yahoo'] }
         it "should create a new Main obj" do
           valid_services.each do |service|
             AutoTagging::Main.new(service, valid_key).should be_instance_of AutoTagging::Main

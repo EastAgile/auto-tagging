@@ -20,11 +20,8 @@ module AutoTagging
           res = http.request(req)
         end
 
-        if res && res.code == "200"
-          JSON.parse(res.body).values.map { |value| value["name"] }.compact
-        else
-          []
-        end
+        tags = JSON.parse(res.body).values.map { |value| value["name"] }.compact if res && res.code == "200"
+        tags || []
       end
 
       private
