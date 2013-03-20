@@ -1,9 +1,9 @@
 require File.expand_path(File.dirname(__FILE__) + '/../../spec_helper')
 
-describe "AutoTagging::OpenCalais::Main" do
+describe "AutoTagging::OpenCalais" do
   describe "#get_tags" do
-    before(:each) { AutoTagging::OpenCalais::Main.api_key = key }
-    let(:main) { AutoTagging::OpenCalais::Main.new }
+    before(:each) { AutoTagging::OpenCalais.api_key = key }
+    let(:main) { AutoTagging::OpenCalais.new }
 
     context "invalid key" do
       let(:key) { 'invalid_key' }

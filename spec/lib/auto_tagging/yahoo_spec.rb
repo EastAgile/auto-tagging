@@ -1,8 +1,8 @@
 require File.expand_path(File.dirname(__FILE__) + '/../../spec_helper')
 
-describe "AutoTagging::Yahoo::Main" do
+describe "AutoTagging::Yahoo" do
   describe "#get_tags" do
-    let(:main) { AutoTagging::Yahoo::Main.new }
+    let(:main) { AutoTagging::Yahoo.new }
 
     context "empty content" do
       it "should return empty array" do

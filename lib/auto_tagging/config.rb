@@ -23,9 +23,10 @@ module AutoTagging
     end
 
     private
+
     def add_service(service)
       service_name = service.instance_of?(Hash) ? service.keys[0] : service
-      const = AutoTagging::const_get(camelize(service_name.to_s))::Main
+      const = AutoTagging::const_get(camelize(service_name.to_s))
       const.api_key = service.values[0].to_s if service.instance_of? Hash
       self.mains << const.new
     end

@@ -1,10 +1,10 @@
 require File.expand_path(File.dirname(__FILE__) + '/../../spec_helper')
 
-describe "AutoTagging::Alchemy::Main" do
+describe "AutoTagging::Alchemy" do
   describe "#get_tags" do
-    before(:each) { AutoTagging::Alchemy::Main.api_key = key }
+    before(:each) { AutoTagging::Alchemy.api_key = key }
 
-    let(:main) { AutoTagging::Alchemy::Main.new }
+    let(:main) { AutoTagging::Alchemy.new }
 
     context "invalid key" do
       let(:key) { 'invalid_key' }

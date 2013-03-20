@@ -2,8 +2,8 @@
 require File.expand_path('../lib/auto_tagging/version', __FILE__)
 
 Gem::Specification.new do |gem|
-  gem.authors       = ["KhoiD + TienN"]
-  gem.email         = ["khoi.do@eastagile.com"]
+  gem.authors       = ["Eastagile"]
+  gem.email         = ["tien.nguyen@eastagile.com"]
   gem.description   = %q{Write a gem description}
   gem.summary       = %q{Write a gem summary}
   gem.homepage      = ""
