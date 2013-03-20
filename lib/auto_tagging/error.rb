@@ -11,5 +11,11 @@ module AutoTagging
         super(msg)
       end
     end
+
+    class NoServiceConfigurationError < StandardError
+      def initialize(msg = "Please configure at lease 1 tagging service")
+        super(msg)
+      end
+    end
   end
 end

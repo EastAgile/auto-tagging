@@ -2,7 +2,8 @@ require File.expand_path(File.dirname(__FILE__) + '/../../spec_helper')
 
 describe "AutoTagging::OpenCalais::Main" do
   describe "#get_tags" do
-    let(:main) { AutoTagging::OpenCalais::Main.new(key) }
+    before(:each) { AutoTagging::OpenCalais::Main.api_key = key }
+    let(:main) { AutoTagging::OpenCalais::Main.new }
 
     context "invalid key" do
       let(:key) { 'invalid_key' }
@@ -31,6 +32,12 @@ describe "AutoTagging::OpenCalais::Main" do
         context "valid content" do
           it "should return an array" do
             main.get_tags(long_content).should_not be_empty
+          end
+        end
+
+        context "complex content" do
+          it "should return an array" do
+            main.get_tags(complex_content).should_not be_empty
           end
         end
       end

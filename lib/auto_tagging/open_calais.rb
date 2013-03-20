@@ -7,8 +7,8 @@ module AutoTagging
       API_SITE_URL = 'api.opencalais.com'
       API_PAGE_URL = '/tag/rs/enrich'
 
-      def initialize(api_key)
-        @api_key = api_key
+      class << self
+        attr_accessor :api_key
       end
 
       def get_tags(content)
@@ -28,17 +28,13 @@ module AutoTagging
 
       def options
         @options ||= {
-          'x-calais-licenseID' => @api_key,
+          'x-calais-licenseID' => Main.api_key,
           'content-type' => 'text/raw',
           'outputFormat' => 'Application/JSON',
           'calculateRelevanceScore' => 'false',
           'enableMetadataType' => 'SocialTags'
         }
       end
-    end
-
-    def open_calais(api_key)
-      Main.new(api_key)
     end
   end
 end

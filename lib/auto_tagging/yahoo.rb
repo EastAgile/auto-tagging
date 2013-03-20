@@ -5,10 +5,6 @@ module AutoTagging
     API_SITE_URL = 'http://query.yahooapis.com/v1/public/yql'
 
     class Main
-      def initialize(api_key=nil)
-        @api_key = api_key
-      end
-
       def get_tags(content)
         res = Net::HTTP.post_form(uri, options(content))
         json_res = JSON.parse(res.body)
@@ -51,10 +47,6 @@ module AutoTagging
           'max' => '50'
         }
       end
-    end
-
-    def yahoo(api_key)
-      Main.new(api_key)
     end
   end
 end
