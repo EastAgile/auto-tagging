@@ -15,7 +15,7 @@ module AutoTagging
       Net::HTTP.start(API_SITE_URL) do |http|
         req = Net::HTTP::Post.new(API_PAGE_URL)
         req.initialize_http_header(options)
-        req.body = content
+        req.body = content.to_s
         res = http.request(req)
       end
 

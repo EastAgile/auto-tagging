@@ -23,6 +23,13 @@ describe "AutoTagging::OpenCalais" do
       end
 
       context "with content" do
+        context "url" do
+          let(:opts) { {:url => "http://www.heroku.com" } }
+          it "should not raise error" do
+            expect { main.get_tags(opts) }.to_not raise_error
+          end
+        end
+        
         context "short content" do
           it "should return an empty array" do
             main.get_tags(short_content).should == []
