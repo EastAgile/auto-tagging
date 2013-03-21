@@ -16,6 +16,8 @@ module AutoTagging
       tags.map { |tag| tag["text"] }
     end
 
+    private
+
     def src_options(opts)
       AutoTagging::SearchParam.url_search?(opts) ? url(opts) : text(opts)
     end

@@ -7,63 +7,46 @@ describe "AutoTagging" do
       services.each {|service| AutoTagging.should_receive(:add_service).with(service)}
       AutoTagging.services = services
     end
+  end
 
-    context "add_service raise error" do
-      before(:each) { AutoTagging.stub(:add_service).and_raise(StandardError) }
+  describe "#const" do
+    let(:service) { {"open_calais" => "jqk145" } }
+
+    before(:each) { AutoTagging.should_receive(:service_name).with(service).and_return(service_name) }
+
+    context "valid service" do
+      let(:service_name) { "open_calais" }
+
+      it "should return valid class" do
+        AutoTagging.send(:const, service).should == AutoTagging::OpenCalais
+      end
+    end
+
+    context "invalid service name" do
+      let(:service_name) { "google" }
 
       it "should raise AutoTagging::Errors::InvalidServiceError" do
         expect do
-          AutoTagging.services = services
+          AutoTagging.send(:const, service)
         end.to raise_error(AutoTagging::Errors::InvalidServiceError)
       end
     end
   end
 
-  describe "add_service" do
-    after(:each) { AutoTagging.reset_mains }
-    context "string param" do
-      context "with invalid service" do
-        let(:invalid_service) { {} }
+  describe "#add_service" do
+    let(:service) { "yahoo" }
+    let(:klass) { double(:const, :new => "") }
+    before(:each) { AutoTagging.stub(:const).and_return(klass) }
 
-        it "should raise NameError" do
-          expect { AutoTagging.send(:add_service,invalid_service)}.to raise_error(NameError)
-        end
-      end
-
-      context "with valid service" do
-        let(:invalid_service) { "yahoo" }
-        before(:each) { AutoTagging.send(:add_service,invalid_service) }
-
-        it "should init main obj for each service" do
-          AutoTagging.mains.size.should == 1
-          AutoTagging.mains[0].should be_instance_of AutoTagging::Yahoo
-        end
-      end
+    it "should invoke const on given service" do
+      AutoTagging.should_receive(:const).with(service)
+      AutoTagging.send(:add_service,service)
     end
 
-    context "hash param" do
-      context "with invalid service" do
-        let(:invalid_service) { { :google => "api_key" }}
-
-        it "should raise NameError" do
-          expect { AutoTagging.send(:add_service,invalid_service)}.to raise_error(NameError)
-        end
-      end
-
-      context "with valid service" do
-        before(:each) { AutoTagging.send(:add_service,valid_service) }
-        let(:key) { "api_key" }
-        let(:valid_service) { { :open_calais => key }}
-
-        it "should init main obj for each service" do
-          AutoTagging.mains.size.should == 1
-          AutoTagging.mains[0].should be_instance_of AutoTagging::OpenCalais
-        end
-
-        it "should set api key the main obj of given service" do
-          AutoTagging::OpenCalais.api_key.should == key
-        end
-      end
+    it "should add obj to mains" do
+      expect do
+        AutoTagging.send(:add_service,service)
+      end.to change(AutoTagging.mains,:size).by(1)
     end
   end
 
