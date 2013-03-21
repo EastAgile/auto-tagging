@@ -14,6 +14,10 @@ module AutoTagging
         end
         src
       end
+
+      def to_valid_url(url)
+        ( /http:\/\/|https:\/\// =~ url ) == 0 ? url : "http://#{url}"
+      end
     end
   end
 end

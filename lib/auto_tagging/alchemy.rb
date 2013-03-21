@@ -17,7 +17,15 @@ module AutoTagging
     end
 
     def src_options(opts)
-      AutoTagging::SearchParam.url_search?(opts) ? opts : {:text => opts}
+      AutoTagging::SearchParam.url_search?(opts) ? url(opts) : text(opts)
+    end
+
+    def url(opts)
+      { :url => AutoTagging::SearchParam.to_valid_url(opts[:url]) }
+    end
+
+    def text(opts)
+      {:text => opts}
     end
   end
 end

@@ -32,4 +32,24 @@ describe "AutoTagging::SearchParam" do
       end
     end
   end
+
+  describe "to_valid_url" do
+    context "with http/https prefix" do
+      let(:urls) { ["http://www.db.com", "https://www.db.com"] }
+
+      it "should not adjust url" do
+        urls.each do |url|
+          AutoTagging::SearchParam.to_valid_url(url).should == url
+        end
+      end
+    end
+
+    context "without http/https prefix" do
+      let(:url) { "www.db.com" }
+
+      it "should add 'http://' prefix " do
+        AutoTagging::SearchParam.to_valid_url(url).should == "http://#{url}"
+      end
+    end
+  end
 end

@@ -40,7 +40,7 @@ module AutoTagging
     end
 
     def url(opts)
-      %{ url = "#{opts.values[0]}" }
+      %{ url = "#{AutoTagging::SearchParam.to_valid_url(opts.values[0])}" }
     end
 
     def text(opts)
