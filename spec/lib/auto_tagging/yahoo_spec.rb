@@ -4,6 +4,13 @@ describe "AutoTagging::Yahoo" do
   describe "#get_tags" do
     let(:main) { AutoTagging::Yahoo.new }
 
+    context "yahoo service return an invalid response" do
+      before(:each) { main.stub(:service_request).and_return("") }
+      it "should return empty array" do
+        main.get_tags(long_content).should == []
+      end
+    end
+
     context "empty content" do
       it "should return empty array" do
         main.get_tags(empty_content).should == []
@@ -11,10 +18,8 @@ describe "AutoTagging::Yahoo" do
     end
 
     context "not empty content" do
-      context "not empty content" do
-        it "should return an array" do
-          main.get_tags(long_content).should_not be_empty
-        end
+      it "should return an array" do
+        main.get_tags(long_content).should_not be_empty
       end
 
       context "complex content" do

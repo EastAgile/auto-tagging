@@ -6,13 +6,19 @@ module AutoTagging
     API_SITE_URL = 'http://query.yahooapis.com/v1/public/yql'
 
     def get_tags(content)
-      res = Net::HTTP.post_form(uri, options(content))
+      res = service_request(content)
       json_res = JSON.parse(res.body)
       tags = parse_response(res) if (json_res["query"]["count"] > 0)
       tags || []
+    rescue NoMethodError
+      []
     end
 
     private
+
+    def service_request(content)
+      Net::HTTP.post_form(uri, options(content))
+    end
 
     def parse_response(res)
       results = JSON.parse(res.body)["query"]["results"]

@@ -8,8 +8,9 @@ module AutoTagging
   include Errors
 
   module Config
-    attr_accessor :services, :mains
     include AutoTagging::StringExt
+
+    attr_accessor :services, :mains
 
     def services=(services)
       reset_mains
