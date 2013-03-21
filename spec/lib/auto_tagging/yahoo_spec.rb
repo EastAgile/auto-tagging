@@ -11,14 +11,35 @@ describe "AutoTagging::Yahoo" do
     end
 
     context "not empty content" do
-      it "should return an array" do
-        main.get_tags(long_content).should_not be_empty
+      context "not empty content" do
+        it "should return an array" do
+          main.get_tags(long_content).should_not be_empty
+        end
       end
-    end
 
-    context "complex content" do
-      it "should return an array" do
-        main.get_tags(complex_content).should_not be_empty
+      context "complex content" do
+        it "should return an array" do
+          main.get_tags(complex_content).should_not be_empty
+        end
+      end
+
+      context "url search" do
+        context "invalid url" do
+          let(:opts) { {:url => "not a valid url"} }
+
+          it "should return an empty array" do
+            main.get_tags(opts).should == []
+          end
+        end
+
+        context "valid url" do
+          let(:opts) { {:url => "http://www.bbc.co.uk/"} }
+
+          it "should return an array" do
+            main.get_tags(opts).should_not be_empty
+          end
+        end
+
       end
     end
   end

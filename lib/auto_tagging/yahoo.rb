@@ -1,5 +1,8 @@
+require 'auto_tagging/search_param'
+
 module AutoTagging
   class Yahoo
+
     API_SITE_URL = 'http://query.yahooapis.com/v1/public/yql'
 
     def get_tags(content)
@@ -28,8 +31,20 @@ module AutoTagging
       []
     end
 
-    def query(content)
-      %{ SELECT * FROM contentanalysis.analyze WHERE text = "#{content}" }
+    def query(opts)
+      %{ SELECT * FROM contentanalysis.analyze WHERE #{src_options(opts)} }
+    end
+
+    def src_options(opts)
+      AutoTagging::SearchParam.url_search?(opts) ? url(opts) : text(opts)
+    end
+
+    def url(opts)
+      %{ url = "#{opts.values[0]}" }
+    end
+
+    def text(opts)
+      %{ text = "#{opts.gsub!('"', '\"')}" }
     end
 
     def uri
@@ -37,7 +52,6 @@ module AutoTagging
     end
 
     def options(content)
-      content.gsub!('"', '\"')
       {
         'q' => query(content),
         'format' => 'json',
