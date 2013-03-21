@@ -1,0 +1,58 @@
+= AutoTagging
+
+A Ruby wrapper library for multiple auto tagging services such as Open Calais, Yahoo Content Analysis and Alchemy.
+Learn more about these services at:
+
+http://www.alchemyapi.com/
+
+http://www.opencalais.com/
+
+http://developer.yahoo.com/contentanalysis/
+
+Just by specifying a paragraph or an url , meaningful tags/keywords will return in form of an array
+
+== Examples :
+
+  AutoTagging.get_tags(url: "www.rubygems.org")
+  results : ["gem hosting service", "available gems", "Ruby community", "contributor", "API", "RubyGems.org", "site", "changes", "information"]
+
+  AutoTagging.get_tags("Tens of thousands of Rails applications are already live. People are using Rails in the tiniest part-time operations to the biggest companies.")
+  results : ["Rails applications", "biggest companies", "Tens", "thousands", "People", "Software" "Web application frameworks", "Computing", "Web 2.0", "Ruby on Rails", "Labor"]
+
+
+== Installation
+  gem install 'auto_tagging'
+
+or add to Gemfile:
+  gem 'auto_tagging'
+
+== Usage
+Configure:
+Specify one or many services you want to use, for example:
+  AutoTagging.services = [{:alchemy => "alchemy_api_key"}]
+or
+  AutoTagging.services = [{:open_calais => "open_calais_api_key}]
+or
+  AutoTagging.services = ["yahoo"]
+or
+  AutoTagging.services = [{:open_calais => "open_calais_api_key}, {:alchemy => "alchemy_api_key"}, "yahoo"]
+
+Note: The result will be the combination of the results return from these services calls but it will slow down the run time
+
+Then invoke
+  AutoTagging.get_tags("Put content here")
+
+You can give url as parameter , please note that this feature only available for Yahoo Content Analysis service and Alchemy
+  AutoTagging.get_tags({:url => "rubygems.org"})
+
+== Contributing
+
+1. Fork it
+2. Create your feature branch (`git checkout -b my-new-feature`)
+3. Commit your changes (`git commit -am 'Added some feature'`)
+4. Push to the branch (`git push origin my-new-feature`)
+5. Create new Pull Request
+
+== Copyright
+
+Copyright (c) 2013 East Agile.
