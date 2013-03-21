@@ -17,5 +17,11 @@ module AutoTagging
         super(msg)
       end
     end
+
+    class InvalidSearchError < StandardError
+      def initialize(msg = "Invalid search options")
+        super(msg)
+      end
+    end
   end
 end

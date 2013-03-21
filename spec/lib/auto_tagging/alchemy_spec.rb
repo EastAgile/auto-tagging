@@ -1,11 +1,10 @@
 require File.expand_path(File.dirname(__FILE__) + '/../../spec_helper')
 
 describe "AutoTagging::Alchemy" do
+  let(:main) { AutoTagging::Alchemy.new }
+  before(:each) { AutoTagging::Alchemy.api_key = key }
+
   describe "#get_tags" do
-    before(:each) { AutoTagging::Alchemy.api_key = key }
-
-    let(:main) { AutoTagging::Alchemy.new }
-
     context "invalid key" do
       let(:key) { 'invalid_key' }
 
@@ -24,21 +23,39 @@ describe "AutoTagging::Alchemy" do
       end
 
       context "with content" do
-        context "short content" do
-          it "should return an empty array" do
-            main.get_tags(short_content).should == []
+        context "url" do
+          context "invalid url" do
+            let(:opts) { {:url => "invalid url"} }
+            it "should return an empty array" do
+              main.get_tags(opts).should == []
+            end
+          end
+
+          context "valid url" do
+            let(:opts) { {:url => "www.bbc.co.uk"} }
+            it "should return an empty array" do
+              main.get_tags(opts).should_not be_empty
+            end
           end
         end
 
-        context "valid content" do
-          it "should return an array" do
-            main.get_tags(long_content).should_not be_empty
+        context "content" do
+          context "short content" do
+            it "should return an empty array" do
+              main.get_tags(short_content).should == []
+            end
           end
-        end
 
-        context "complex content" do
-          it "should return an array" do
-            main.get_tags(complex_content).should_not be_empty
+          context "valid content" do
+            it "should return an array" do
+              main.get_tags(long_content).should_not be_empty
+            end
+          end
+
+          context "complex content" do
+            it "should return an array" do
+              main.get_tags(complex_content).should_not be_empty
+            end
           end
         end
       end
