@@ -1,6 +1,6 @@
 = AutoTagging
 
-A Ruby wrapper library for multiple auto tagging services such as Open Calais, Yahoo Content Analysis and Alchemy.
+A Ruby wrapper library for multiple auto tagging services such as Alchemy, Delicious, Yahoo Content Analysis and Open Calais.
 Learn more about these services at:
 
 http://www.alchemyapi.com/
@@ -8,6 +8,8 @@ http://www.alchemyapi.com/
 http://www.opencalais.com/
 
 http://developer.yahoo.com/contentanalysis/
+
+https://delicious.com/developers
 
 Just by specifying a paragraph or an url , meaningful tags/keywords will return in form of an array
 
@@ -35,15 +37,17 @@ or
 or
   AutoTagging.services = ["yahoo"]
 or
+  AutoTagging.services = ["delicious"]
+or
   AutoTagging.services = [{:open_calais => "open_calais_api_key}, {:alchemy => "alchemy_api_key"}, "yahoo"]
 
 Note: The result will be the combination of the results return from these services calls but it will slow down the run time
 
-Then invoke
+For PARAGRAPH , (Delicious service doesn't support this)
   AutoTagging.get_tags("Put content here")
 
-You can give url as parameter , please note that this feature only available for Yahoo Content Analysis service and Alchemy
-  AutoTagging.get_tags({:url => "rubygems.org"})
+For URL , (OpenCalais service doesn't support this)
+  AutoTagging.get_tags(url: "rubygems.org")
 
 == Contributing
 

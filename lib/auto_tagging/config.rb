@@ -1,6 +1,7 @@
 require "auto_tagging/open_calais"
 require "auto_tagging/alchemy"
 require "auto_tagging/yahoo"
+require "auto_tagging/delicious"
 require "auto_tagging/error"
 require "auto_tagging/string_ext"
 
