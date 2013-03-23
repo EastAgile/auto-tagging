@@ -35,9 +35,9 @@ Specify one or many services you want to use, for example:
 or
   AutoTagging.services = [{:open_calais => "open_calais_api_key}]
 or
-  AutoTagging.services = ["yahoo"]
+  AutoTagging.services = [:yahoo]
 or
-  AutoTagging.services = ["delicious"]
+  AutoTagging.services = [{:delicious => {"delicious_username" => "delicious_password"}}]
 or
   AutoTagging.services = [{:open_calais => "open_calais_api_key}, {:alchemy => "alchemy_api_key"}, "yahoo"]
 
