@@ -23,5 +23,11 @@ module AutoTagging
         super(msg)
       end
     end
+
+    class InvalidCredentialsError < StandardError
+      def initialize(msg = "Delicious service is configured without credentials")
+        super(msg)
+      end
+    end
   end
 end

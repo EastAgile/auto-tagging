@@ -27,11 +27,22 @@ module AutoTagging
     def add_service(service)
       klass = const(service)
       klass.api_key = api_key(service) if klass.respond_to?("api_key=")
+      klass.credentials = credentials(service) if klass.respond_to?("credentials=")
       ( self.mains ||= [] ) << klass.new
     end
 
+    #{:alchemy => "api-key"}
     def api_key(service)
       service.values[0].to_s if service.instance_of? Hash
+    end
+
+    #{:delicious => {"username" => "password"}}
+    def credentials(service)      
+      if service.instance_of?(Hash) && service.values[0].instance_of?(Hash)
+        service.values[0]
+      else
+        raise AutoTagging::Errors::InvalidCredentialsError
+      end
     end
 
     def service_name(service)
