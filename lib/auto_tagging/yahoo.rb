@@ -50,7 +50,7 @@ module AutoTagging
     end
 
     def text(opts)
-      %{ text = "#{opts.gsub!('"', '\"')}" }
+      %{ text = "#{opts.gsub('"', '\"')}" }
     end
 
     def uri
